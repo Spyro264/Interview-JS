@@ -59,3 +59,67 @@ function retryFetch(fn, delay, maxAttempts) {
     });
 }
 ```
+
+
+
+```
+function fetchData() {
+     return new Promise((res,rej)=>{
+        return Math.random() > 0.5 ?  rej("failed intentionally") : rej("Error Fetching Data");
+     })
+}
+
+fetchData()
+.then((res)=>{
+    console.log(res);
+})
+.catch((err)=>{
+    console.log(err);
+    retryFetch(fetchData,3);
+})
+
+function retryFetch(fn , retrues) {
+    let attempts = 0;
+
+    function retryAttempt(){
+        fn()
+        .then((resuklt)=>{
+            console.log(resuklt);
+        })
+        .catch((err)=>{
+            if(attempts < retrues){
+                attempts++;
+                console.log(`Retrying... Attempt ${attempts}`);
+               return  retryAttempt();
+            }else{
+                console.log(`Failed after ${retrues} attempts: ${err}`);
+            }
+
+        })
+    }
+    retryAttempt();
+}
+
+
+// function retryFetch(fn , retries){
+//      return new Promise((res,rej)=>{
+//         let attempts=0;
+//         function attempt() {
+//             fn()
+//             .then((result)=>{
+//                 res(result)
+//             })
+//             .catch((err)=>{
+//                 if(attempts < retries){
+//                     attempts++;
+//                     console.log(`Retrying... Attempt ${attempts}`);
+//                     attempt();
+//                 } else{
+//                     rej(`Failed after ${retries} attempts: ${err}`);
+//                 }
+//             })
+//         }
+//         attempt();
+//      })
+// }
+```

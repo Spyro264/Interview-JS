@@ -1,3 +1,16 @@
+# Implement Custom Promise.all()
+
+Requirements:
+
+Takes array of promises
+
+Resolves when all succeed
+
+Returns results in same order
+
+Rejects immediately if any promise fails
+
+```
 function customPromiseAll(arr){
     return new Promise((res,rej)=>{
         let result = [];
@@ -28,3 +41,5 @@ customPromiseAll([p1,p2,p3])
 .catch((err)=>{
     console.log(err);
 })
+
+```
