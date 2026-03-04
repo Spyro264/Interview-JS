@@ -1,30 +1,30 @@
-function customPromiseAll(arr){
-    return new Promise((res,rej)=>{
-        let result = [];
-        arr.forEach((item,index)=>{
-            item.then((data)=>{
-                result[index] = data;
-                 if(result.length === arr.length && !result.includes(undefined)){
-                    res(result);
-                 }
-            })
-            .catch((err)=>{
-                rej(err);
-            })
-        })
-        return result;
-    })
+function count () {
+   let count = 0;
+
+   function fn(){
+      count++;
+      return count;
+   }
+   fn.reset = function () {
+      count = 0;
+   }
+   return fn;
+   
 }
 
-const p1 = new Promise((res,rej) => res("Result of p1"));
-const p2 = new Promise((res, rej) => res("Result of p2"));
-const p3 = new Promise((res, rej) => res("Result of p3"));
+
+const counter = count();
+console.log(counter());
+console.log(counter());
+console.log(counter());
+counter.reset();
+console.log(counter());
+console.log(counter());
+console.log(counter());
 
 
-customPromiseAll([p1,p2,p3])
-.then((result)=>{
-    console.log(result);
-})
-.catch((err)=>{
-    console.log(err);
-})
+
+
+
+
+
