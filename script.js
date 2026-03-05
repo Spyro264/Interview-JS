@@ -1,30 +1,10 @@
-function count () {
-   let count = 0;
+const p1 = new Promise((res,rej) => Math.random() > 0.5 ? res('Success') : rej('Failure'));
+const p2 = new Promise((res,rej) => Math.random() > 0.5 ? res('Success') : rej('Failure'));
+const p3 = new Promise((res,rej) => Math.random() > 0.5 ? res('Success') : rej('Failure'));
 
-   function fn(){
-      count++;
-      return count;
-   }
-   fn.reset = function () {
-      count = 0;
-   }
-   return fn;
-   
-}
-
-
-const counter = count();
-console.log(counter());
-console.log(counter());
-console.log(counter());
-counter.reset();
-console.log(counter());
-console.log(counter());
-console.log(counter());
-
-
-
-
-
-
-
+Promise.all([p1,p2,p3]).then((res)=>{
+      console.log('All promises resolved:', res);
+})
+.catch((err)=>{
+      console.log('At least one promise rejected:', err);
+})
