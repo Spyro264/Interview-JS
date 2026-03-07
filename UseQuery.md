@@ -1,3 +1,6 @@
+# Implement useQuery 
+
+```
  let prevDevs = null;
   let cachedResponse = null;
 
@@ -65,6 +68,4 @@ useQuery(fetchData , [1,8]).then((res)=>{
     console.log("second",res);
 });
 
-
-
-
+```
