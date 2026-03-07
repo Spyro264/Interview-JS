@@ -1,3 +1,7 @@
+# Implement debounce with Cancel and Flush methods
+
+```
+
 function debounce(func , wait){
       let timer = null;
       let lastArgs ;
@@ -39,3 +43,5 @@ fun("World");
 fun("Everyone");
 fun("hehehehe")
 fun.flush();
+
+```
