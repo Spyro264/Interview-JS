@@ -1,41 +1,35 @@
-function debounce(func , wait){
-      let timer = null;
-      let lastArgs ;
-      
-           function debounced(...args){
-            lastArgs = args; 
-            if(timer) clearTimeout(timer);
-            timer = setTimeout(()=>{
-                 func(...args); 
-            },wait)
-      }
+function classNames(...args) {
+  let result = "";
 
-      debounced.cancel = function(){
-            if(timer) clearTimeout(timer);
-            timer = null;
-            console.log("cancelled");
-            
-      }
+  args.forEach((item) => {
 
-      debounced.flush = function(){
-            if(timer) {
-                 clearTimeout(timer);
-                 timer = null;
-                 func(...lastArgs);
-                 lastArgs = null;
-            };
-           
-      }
+    // strings
+    if (typeof item === "string" && item) {
+      result += item + " ";
+    }
 
-      return debounced;
+    // numbers (ignore 0)
+    if (typeof item === "number" && item) {
+      result += item + " ";
+    }
+
+    // arrays
+    if (Array.isArray(item)) {
+      result += classNames(...item) + " ";
+    }
+
+    // objects
+    if (typeof item === "object" && item !== null && !Array.isArray(item)) {
+      for (let key in item) {
+        if (item[key]) {
+          result += key + " ";
+        }
+      }
+    }
+
+  });
+
+  return result.trim();
 }
 
-function hello(name){
-      console.log(`Hello ${name}`);   
-}
-
-const fun = debounce(hello,3000);
-fun("World");
-fun("Everyone");
-fun("hehehehe")
-fun.flush();
+console.log(classNames("foo","bar",{foo:true , bar:false}));
