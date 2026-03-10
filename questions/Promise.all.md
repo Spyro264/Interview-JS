@@ -1,3 +1,6 @@
+# Implement Promise.all()
+
+```
 function myPromise(arr = []){
   let count = 0;
 
@@ -49,3 +52,4 @@ myPromise([p0,p1])
 .catch((err)=>{
     console.log(err);
 })
+```
